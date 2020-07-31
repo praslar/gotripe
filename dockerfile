@@ -10,7 +10,7 @@ COPY . .
 
 RUN go build -o main .
 
-EXPOSE 3000
+EXPOSE 8080
 
-CMD ["./wait-for", "mongodb:27017", "--timeout=100", "--", "./main"]
+CMD ["./wait-for.sh", "mongodb:27017", "--timeout=100", "--", "./main"]
 
