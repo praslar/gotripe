@@ -9,3 +9,12 @@ services:
     volumes:
       - /opt/data/mongo_home:/data/db
     restart: always
+  backend:
+    image: "gotripe:${BUILD_VERSION}"
+    depends_on: 
+      - mongodb
+    environment: 
+      WAIT_HOSTS: mongodb:27017
+    ports: 
+      - 8080:8080
+    

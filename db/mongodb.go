@@ -14,7 +14,7 @@ import (
 type (
 	// Config hold MongoDB configuration information
 	Config struct {
-		Addrs    []string      `envconfig:"MONGODB_ADDRS" default:"localhost:27017"`
+		Addrs    []string      `envconfig:"MONGODB_ADDRS" default:"mongodb:27017"`
 		Database string        `envconfig:"MONGODB_DATABASE" default:"gotriple"`
 		Username string        `envconfig:"MONGODB_USERNAME"`
 		Password string        `envconfig:"MONGODB_PASSWORD"`
