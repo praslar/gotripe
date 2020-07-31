@@ -7,9 +7,8 @@ import (
 
 type userResponse struct {
 	User struct {
-		Username string `json:"username"`
-		Email    string `json:"email"`
-		Token    string `json:"token"`
+		Email string `json:"email"`
+		Token string `json:"token"`
 	} `json:"user"`
 }
 

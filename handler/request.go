@@ -1,9 +1,10 @@
 package handler
 
 import (
+	"github.com/labstack/echo/v4"
+
 	"github.com/gotripe/model"
 	"github.com/gotripe/utils"
-	"github.com/labstack/echo/v4"
 )
 
 type signUp struct {

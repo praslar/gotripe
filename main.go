@@ -14,7 +14,7 @@ func main() {
 
 	d, err := db.DialDefaultMongoDB()
 	if err != nil {
-		r.Logger.Fatal(err)
+		r.Logger.Fatal("db err: ", err)
 	}
 
 	u := repo.NewUserRepo(d)

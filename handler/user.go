@@ -3,10 +3,11 @@ package handler
 import (
 	"net/http"
 
+	"github.com/labstack/echo/v4"
+
 	"github.com/gotripe/db"
 	"github.com/gotripe/model"
 	"github.com/gotripe/utils"
-	"github.com/labstack/echo/v4"
 )
 
 func (h *Handler) SignUp(c echo.Context) error {
