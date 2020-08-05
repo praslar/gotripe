@@ -10,6 +10,7 @@ import (
 	"github.com/gotripe/utils"
 )
 
+// SignUp register for a new account
 func (h *Handler) SignUp(c echo.Context) error {
 	var usr model.User
 	req := &signUp{}
@@ -31,4 +32,23 @@ func (h *Handler) SignUp(c echo.Context) error {
 		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
 	}
 	return c.JSON(http.StatusCreated, newUserResponse(&usr))
+}
+
+// Login for existing user
+func (h *Handler) Login(c echo.Context) error {
+	req := &Login{}
+	if err := req.bind(c); err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, utils.NewError(err))
+	}
+	u, err := h.userRepo.FindByEmail(req.User.Email)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, utils.NewError(err))
+	}
+	if u == nil {
+		return c.JSON(http.StatusForbidden, utils.AccessForbidden())
+	}
+	if !u.CheckPassword(req.User.Password) {
+		return c.JSON(http.StatusForbidden, utils.AccessForbidden())
+	}
+	return c.JSON(http.StatusOK, newUserResponse(u))
 }

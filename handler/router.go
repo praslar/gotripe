@@ -1,20 +1,26 @@
 package handler
 
 import (
+	"github.com/gotripe/router/middleware"
+	"github.com/gotripe/utils"
 	"github.com/labstack/echo/v4"
 )
 
 func (h *Handler) Register(v1 *echo.Group) {
-	//jwtMiddleware := middleware.JWT(utils.JWTSecret)
+	jwtMiddleware := middleware.JWT(utils.JWTSecret)
 
 	guestUsers := v1.Group("/users")
 	guestUsers.POST("", h.SignUp)
-	// guestUsers.POST("/login", h.Login)
+	guestUsers.POST("/login", h.Login)
 
-	// user := v1.Group("/user", jwtMiddleware)
-	// user.GET("", h.CurrentUser)
-	// user.PUT("", h.UpdateUser)
+	movie := v1.Group("/movie", jwtMiddleware)
+	movie.POST("", h.CreateMovie)
+	movie.GET("/all", h.FindAllMovies)
+	movie.GET("/:movie_id", h.WatchMovie)
 
+	stripe := v1.Group("/stripe")
+	stripe.GET("/pubkey", h.GetPubKey)
+	stripe.GET("/plan", h.GetPlan)
 	// profiles := v1.Group("/profiles", jwtMiddleware)
 	// profiles.GET("/:username", h.GetProfile)
 	// profiles.POST("/:username/follow", h.Follow)

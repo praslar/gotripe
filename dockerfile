@@ -12,5 +12,4 @@ RUN go build -o main .
 
 EXPOSE 8080
 
-CMD ["./wait-for.sh", "mongodb:27017", "--timeout=100", "--", "./main"]
-
+CMD ["./main"]

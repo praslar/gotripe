@@ -31,7 +31,7 @@ func JWT(key interface{}) echo.MiddlewareFunc {
 }
 
 func JWTWithConfig(config JWTConfig) echo.MiddlewareFunc {
-	extractor := jwtFromHeader("Authorization", "Token")
+	extractor := jwtFromHeader("Authorization")
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
 			auth, err := extractor(c)
@@ -53,7 +53,7 @@ func JWTWithConfig(config JWTConfig) echo.MiddlewareFunc {
 				return c.JSON(http.StatusForbidden, utils.NewError(ErrJWTInvalid))
 			}
 			if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-				userID := uint(claims["id"].(float64))
+				userID := (claims["id"])
 				c.Set("user", userID)
 				return next(c)
 			}
@@ -63,13 +63,9 @@ func JWTWithConfig(config JWTConfig) echo.MiddlewareFunc {
 }
 
 // jwtFromHeader returns a `jwtExtractor` that extracts token from the request header.
-func jwtFromHeader(header string, authScheme string) jwtExtractor {
+func jwtFromHeader(header string) jwtExtractor {
 	return func(c echo.Context) (string, error) {
 		auth := c.Request().Header.Get(header)
-		l := len(authScheme)
-		if len(auth) > l+1 && auth[:l] == authScheme {
-			return auth[l+1:], nil
-		}
-		return "", ErrJWTMissing
+		return auth, nil
 	}
 }

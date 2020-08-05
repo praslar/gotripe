@@ -14,6 +14,7 @@ require (
 	github.com/labstack/gommon v0.3.0
 	github.com/leodido/go-urn v1.2.0 // indirect
 	github.com/sirupsen/logrus v1.6.0
+	github.com/stripe/stripe-go/v71 v71.40.0
 	github.com/xesina/golang-echo-realworld-example-app v0.1.0
 	golang.org/x/crypto v0.0.0-20200728195943-123391ffb6de
 	gopkg.in/go-playground/validator.v9 v9.31.0

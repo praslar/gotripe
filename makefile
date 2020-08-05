@@ -1,6 +1,7 @@
 PROJECT_NAME=gotripe
 BUILD_VERSION=$(shell cat VERSION)
 DOCKER_IMAGE=$(PROJECT_NAME):$(BUILD_VERSION)
+WEB_DOCKER_IMAGE=$(PROJECT_NAME):client
 GO_BUILD_ENV=CGO_ENABLED=0 GOOS=linux GOARCH=amd64 GO111MODULE=on
 
 
@@ -24,4 +25,9 @@ compose_prod: docker
 docker_build:
 	docker build -t $(DOCKER_IMAGE) .;
 
-docker: vet build docker_build 
+docker_buildweb:
+	cd web; \
+	docker build -t $(WEB_DOCKER_IMAGE) .; \
+	cd ../;
+
+docker: vet build docker_build docker_buildweb
