@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "vue-stripe-checkout": "^3.5.7"
+  }
+}

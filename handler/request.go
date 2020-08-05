@@ -11,6 +11,7 @@ type signUp struct {
 	User struct {
 		Email    string `json:"email" validate:"required,email"`
 		Password string `json:"password" validate:"required,gt=6"`
+		Plan     string `json:"plan"`
 	} `json:"user"`
 }
 
@@ -24,6 +25,7 @@ func (req *signUp) bind(c echo.Context, usr *model.User) error {
 	usr.UserID = utils.NewID()
 	usr.Email = req.User.Email
 	hashpwd, err := usr.HashPassword(req.User.Password)
+	usr.Plan = req.User.Plan
 	if err != nil {
 		return err
 	}

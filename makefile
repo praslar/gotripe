@@ -30,4 +30,4 @@ docker_buildweb:
 	docker build -t $(WEB_DOCKER_IMAGE) .; \
 	cd ../;
 
-docker: vet build docker_build docker_buildweb
+docker: vet build docker_build 
